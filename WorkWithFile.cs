@@ -24,7 +24,7 @@ namespace SpeedText
             Console.WriteLine("Press Enter to Escape");
             while (true)
             {
-                ConsoleKeyInfo key = Console.ReadKey();
+                ConsoleKeyInfo key = Console.ReadKey(true);
                 if (key.Key == ConsoleKey.Enter)
                 {
                     Console.Clear();
