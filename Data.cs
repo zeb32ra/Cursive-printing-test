@@ -5,8 +5,8 @@ namespace SpeedText
     {
         public string name;
         public int simbols_per_minute;
-        public float simbols_per_second;
-        public Data(string n,int s_p_m, float s_p_s)
+        public double simbols_per_second;
+        public Data(string n,int s_p_m, double s_p_s)
         {
             name = n;
             simbols_per_minute = s_p_m;

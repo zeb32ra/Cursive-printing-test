@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace SpeedText
 {
     internal class Write_Text
@@ -92,7 +86,7 @@ namespace SpeedText
         private void add_user_to_the_list(int symbols_written)
         {
             int chr_p_min = symbols_written;
-            float chr_p_sec = symbols_written / 60;
+            double chr_p_sec = (double)symbols_written / 60;
             string name = Main.name;
             Data user = new Data(name, chr_p_min, chr_p_sec);
             Main.users.Add(user);
