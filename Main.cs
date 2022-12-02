@@ -17,14 +17,10 @@ namespace SpeedText
         Write_Text txt = new Write_Text();
         public static List<Data> users = new List<Data> ();
         public string text = "Текст делится на разные части: предложения, абзацы, параграфы, главы и т. д. Дальше, когда мы будем рассказывать о его отличительных чертах, мы будем говорить именно «части», но при этом иметь в виду их все.";
-        public bool we_are_in_menu = true;
+        /*public bool we_are_in_menu = true;*/
         public void programm()
         {
-            if (we_are_in_menu) // I can remove if and flag
-            {
                 Menu();
-            }
-
         }
         private void Menu()
         {
@@ -38,8 +34,8 @@ namespace SpeedText
             Console.WriteLine(text);
             Console.WriteLine("------------------------------");
             Console.WriteLine("Press Enter when you are ready");
-            ConsoleKeyInfo key = Console.ReadKey();
-            if (key.Key == ConsoleKey.Enter)
+            ConsoleKeyInfo klue = Console.ReadKey();
+            if (klue.Key == ConsoleKey.Enter)
             {
                 char[] content = text.ToArray();
                 txt.User_Writes(content);

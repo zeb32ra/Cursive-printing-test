@@ -9,7 +9,8 @@ namespace SpeedText
 {
     internal class Write_Text
     {
-        bool timer_is_running = true;
+        public static bool timer_is_running = true;
+        int symbols_written;
         
         public void User_Writes(char[] content)
         {
@@ -17,7 +18,7 @@ namespace SpeedText
             timer.Start();
             int x = 0;
             int y = 0;
-            int symbols_written = 0;
+            
 
             foreach (char c in content)
             {
@@ -27,7 +28,17 @@ namespace SpeedText
                 }
                 else
                 {
-                    char name_of_button = Console.ReadKey().KeyChar;
+                    ConsoleKeyInfo key = Console.ReadKey(true);
+                    char name_of_button = key.KeyChar;
+                    if (key.Key == ConsoleKey.Enter)
+                    {
+                        timer_is_running = false;
+                        add_user_to_the_list(symbols_written);
+                        WorkWithFile.save_to_file();
+                        WorkWithFile.open_file();
+                        break;
+
+                    }
                     if (name_of_button == c)
                     {
                         Console.ForegroundColor = ConsoleColor.Green;
@@ -50,9 +61,6 @@ namespace SpeedText
                 
 
             }
-            Main.chr_p_min = symbols_written;
-            Main.chr_p_sec = symbols_written / 60;
-            add_user_to_the_list();
 
         }
         public void Timer()
@@ -61,25 +69,32 @@ namespace SpeedText
             timer_is_running = true;
             while (time_sec > 0) 
             {
-                
-                Console.SetCursorPosition(15, 6);
-                Console.WriteLine("  ");
-                Console.SetCursorPosition(0, 6);
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("Seconds left - " + time_sec);
-                Thread.Sleep(1000);
-                time_sec--;   
+                if (timer_is_running)
+                {
+                    Console.SetCursorPosition(15, 6);
+                    Console.WriteLine("           ");
+                    Console.SetCursorPosition(0, 6);
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine("Seconds left - " + time_sec);
+                    Thread.Sleep(1000);
+                    time_sec--;
+                }  
             }
             timer_is_running = false;
             Console.SetCursorPosition(15, 6);
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("Stop!");
             Thread.Sleep(2000);
-            // open table of records
+            add_user_to_the_list(symbols_written);
+            WorkWithFile.save_to_file();
+            WorkWithFile.open_file();
         }
-        private void add_user_to_the_list()
+        private void add_user_to_the_list(int symbols_written)
         {
-            Data user = new Data(Main.name, Main.chr_p_min, Main.chr_p_sec);
+            int chr_p_min = symbols_written;
+            float chr_p_sec = symbols_written / 60;
+            string name = Main.name;
+            Data user = new Data(name, chr_p_min, chr_p_sec);
             Main.users.Add(user);
         }
 
